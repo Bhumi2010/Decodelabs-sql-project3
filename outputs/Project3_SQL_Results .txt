@@ -1,0 +1,321 @@
+======================================================================
+PROJECT 3: SQL DATA ANALYSIS - QUERY RESULTS
+======================================================================
+
+Database: orders.db | Table: orders | Total rows: 1,200
+
+----------------------------------------------------------------------
+Query 1.1: View the first 10 rows of the dataset
+----------------------------------------------------------------------
+  OrderID       Date CustomerID Product  Quantity  UnitPrice ShippingAddress PaymentMethod OrderStatus TrackingNumber  ItemsInCart CouponCode ReferralSource  TotalPrice
+ORD200000 2023-01-04     C72649 Monitor         5     570.62     928 Main St    Debit Card     Shipped    TRK37947903            7     SAVE10      Instagram     2853.10
+ORD200001 2024-08-23     C75739   Phone         2     151.35     823 Main St        Online     Shipped    TRK91186779            3     SAVE10       Referral      302.70
+ORD200002 2024-02-27     C81728  Tablet         5     550.68     512 Main St   Credit Card   Cancelled    TRK42903982            8   FREESHIP          Email     2753.40
+ORD200003 2023-10-15     C33540   Chair         1     273.19     275 Main St    Debit Card    Returned    TRK62788070            5     SAVE10       Facebook      273.19
+ORD200004 2025-05-08     C81840 Printer         4     626.01     668 Main St        Online   Delivered    TRK29241424            8     SAVE10          Email     2504.04
+ORD200005 2023-10-23     C37249   Phone         2     245.86     934 Main St   Credit Card     Shipped    TRK72976927            4     SAVE10      Instagram      491.72
+ORD200006 2025-06-17     C83492  Laptop         1     664.42     986 Main St     Gift Card    Returned    TRK96417362            6     SAVE10       Facebook      664.42
+ORD200007 2023-05-12     C41460 Monitor         5     149.55     706 Main St          Cash     Shipped    TRK78809193            9   FREESHIP       Facebook      747.75
+ORD200008 2025-04-02     C26817   Phone         2     134.28     904 Main St     Gift Card   Cancelled    TRK61042692            2  No Coupon          Email      268.56
+ORD200009 2023-11-21     C31946    Desk         4     509.38     102 Main St   Credit Card     Shipped    TRK33478363            6     SAVE10         Google     2037.52
+
+----------------------------------------------------------------------
+Query 1.2: Select only specific columns (Product, Quantity, TotalPrice)
+----------------------------------------------------------------------
+  OrderID Product  Quantity  TotalPrice
+ORD200000 Monitor         5     2853.10
+ORD200001   Phone         2      302.70
+ORD200002  Tablet         5     2753.40
+ORD200003   Chair         1      273.19
+ORD200004 Printer         4     2504.04
+ORD200005   Phone         2      491.72
+ORD200006  Laptop         1      664.42
+ORD200007 Monitor         5      747.75
+ORD200008   Phone         2      268.56
+ORD200009    Desk         4     2037.52
+
+----------------------------------------------------------------------
+Query 1.3: Total number of orders in the dataset
+----------------------------------------------------------------------
+ total_orders
+         1200
+
+----------------------------------------------------------------------
+Query 2.1: Equality filter: orders paid via Credit Card
+----------------------------------------------------------------------
+  OrderID PaymentMethod  TotalPrice
+ORD200002   Credit Card     2753.40
+ORD200005   Credit Card      491.72
+ORD200009   Credit Card     2037.52
+ORD200010   Credit Card     3129.85
+ORD200013   Credit Card      604.47
+ORD200016   Credit Card     1067.62
+ORD200029   Credit Card     1270.59
+ORD200034   Credit Card     2306.08
+ORD200039   Credit Card      769.38
+ORD200047   Credit Card      419.88
+
+----------------------------------------------------------------------
+Query 2.2: Comparison filter: high-value orders above 2000
+----------------------------------------------------------------------
+  OrderID Product  TotalPrice
+ORD200789  Tablet     3456.40
+ORD201122 Monitor     3390.95
+ORD200632  Laptop     3390.80
+ORD200469   Chair     3384.90
+ORD200328  Tablet     3370.20
+ORD200107 Printer     3353.75
+ORD200326  Laptop     3352.40
+ORD201065 Printer     3334.00
+ORD201031   Phone     3322.55
+ORD200463  Laptop     3313.90
+      ...     ...         ...
+ORD200304 Monitor     2043.65
+ORD200357  Laptop     2042.80
+ORD200458 Monitor     2042.32
+ORD200009    Desk     2037.52
+ORD200807 Monitor     2028.63
+ORD201035  Laptop     2024.44
+ORD200181 Printer     2021.95
+ORD200915  Laptop     2011.96
+ORD200979 Monitor     2007.18
+ORD201136  Tablet     2004.99
+
+----------------------------------------------------------------------
+Query 2.3: Combined filter: Cancelled or Returned orders worth investigating
+----------------------------------------------------------------------
+  OrderID Product OrderStatus  TotalPrice
+ORD201122 Monitor    Returned     3390.95
+ORD200469   Chair   Cancelled     3384.90
+ORD200328  Tablet   Cancelled     3370.20
+ORD200326  Laptop    Returned     3352.40
+ORD200527   Chair   Cancelled     3267.35
+ORD200768  Tablet   Cancelled     3267.30
+ORD200889 Monitor   Cancelled     3253.60
+ORD200802   Chair   Cancelled     3223.20
+ORD200957 Monitor    Returned     3219.45
+ORD200086 Printer   Cancelled     3215.15
+ORD200967  Tablet    Returned     3194.60
+ORD200296    Desk   Cancelled     3194.00
+ORD200364   Phone   Cancelled     3143.70
+ORD200764  Laptop   Cancelled     3137.15
+ORD200010  Tablet    Returned     3129.85
+
+----------------------------------------------------------------------
+Query 2.4: Pattern matching: orders that used a coupon code
+----------------------------------------------------------------------
+  OrderID CouponCode  TotalPrice
+ORD200000     SAVE10     2853.10
+ORD200001     SAVE10      302.70
+ORD200002   FREESHIP     2753.40
+ORD200003     SAVE10      273.19
+ORD200004     SAVE10     2504.04
+ORD200005     SAVE10      491.72
+ORD200006     SAVE10      664.42
+ORD200007   FREESHIP      747.75
+ORD200009     SAVE10     2037.52
+ORD200010   WINTER15     3129.85
+
+----------------------------------------------------------------------
+Query 2.5: Date range filter: orders placed in 2024
+----------------------------------------------------------------------
+  OrderID       Date  TotalPrice
+ORD200804 2024-01-01      709.50
+ORD200931 2024-01-01       80.46
+ORD200737 2024-01-03     2131.48
+ORD200082 2024-01-05     2260.80
+ORD200548 2024-01-05     1278.36
+ORD200399 2024-01-07     2119.65
+ORD201105 2024-01-08     1427.07
+ORD201164 2024-01-08     1577.85
+ORD200674 2024-01-09     1435.00
+ORD200712 2024-01-09      136.80
+
+----------------------------------------------------------------------
+Query 3.1: Number of orders per product
+----------------------------------------------------------------------
+Product  order_count
+Printer          181
+ Tablet          179
+  Chair          178
+ Laptop          173
+   Desk          170
+Monitor          163
+  Phone          156
+
+----------------------------------------------------------------------
+Query 3.2: Number of orders per order status
+----------------------------------------------------------------------
+OrderStatus  order_count
+  Cancelled          250
+   Returned          247
+    Pending          237
+    Shipped          235
+  Delivered          231
+
+----------------------------------------------------------------------
+Query 3.3: Number of orders per referral source
+----------------------------------------------------------------------
+ReferralSource  order_count
+     Instagram          259
+         Email          250
+        Google          241
+      Facebook          228
+      Referral          222
+
+----------------------------------------------------------------------
+Query 4.1: Total revenue by product (SUM)
+----------------------------------------------------------------------
+Product  num_orders  total_revenue
+  Chair         178      195620.11
+Printer         181      195612.61
+ Laptop         173      192126.56
+ Tablet         179      186568.95
+Monitor         163      175651.41
+   Desk         170      167459.93
+  Phone         156      151722.39
+
+----------------------------------------------------------------------
+Query 4.2: Average order value by payment method (AVG)
+----------------------------------------------------------------------
+PaymentMethod  num_orders  avg_order_value
+  Credit Card         234          1127.55
+    Gift Card         230          1070.97
+         Cash         246          1056.04
+       Online         258          1017.22
+   Debit Card         232          1001.56
+
+----------------------------------------------------------------------
+Query 4.3: Revenue and average order value by referral source
+----------------------------------------------------------------------
+ReferralSource  num_orders  total_revenue  avg_order_value
+     Instagram         259      275285.45          1062.88
+         Email         250      261808.55          1047.23
+        Google         241      250441.48          1039.18
+      Facebook         228      250410.90          1098.29
+      Referral         222      226815.58          1021.69
+
+----------------------------------------------------------------------
+Query 4.4: Coupon usage impact: average order value with vs without coupon
+----------------------------------------------------------------------
+coupon_status  num_orders  avg_order_value
+    No Coupon         309          1043.37
+  Used Coupon         891          1057.64
+
+----------------------------------------------------------------------
+Query 4.5: Monthly revenue trend (SUM grouped by month)
+----------------------------------------------------------------------
+year_month  num_orders  total_revenue
+   2023-01          47       56685.75
+   2023-02          37       40117.66
+   2023-03          43       48609.37
+   2023-04          31       27751.71
+   2023-05          49       63836.84
+   2023-06          45       49500.19
+   2023-07          44       42820.66
+   2023-08          51       54352.14
+   2023-09          29       29526.67
+   2023-10          47       52607.85
+       ...         ...            ...
+   2024-09          44       39794.98
+   2024-10          31       37226.97
+   2024-11          35       32413.76
+   2024-12          41       38785.77
+   2025-01          27       29099.40
+   2025-02          37       35317.55
+   2025-03          49       39200.66
+   2025-04          32       31821.20
+   2025-05          37       43396.64
+   2025-06          49       53047.40
+
+----------------------------------------------------------------------
+Query 5.1: Products that generated more than 180,000 in total revenue
+----------------------------------------------------------------------
+Product  total_revenue
+  Chair      195620.11
+Printer      195612.61
+ Laptop      192126.56
+ Tablet      186568.95
+
+----------------------------------------------------------------------
+Query 5.2: Payment methods used in more than 230 orders
+----------------------------------------------------------------------
+PaymentMethod  num_orders
+       Online         258
+         Cash         246
+  Credit Card         234
+   Debit Card         232
+
+----------------------------------------------------------------------
+Query 6.1: Top 10 highest-value orders (outlier candidates)
+----------------------------------------------------------------------
+  OrderID CustomerID Product  TotalPrice OrderStatus
+ORD200789     C57276  Tablet     3456.40   Delivered
+ORD201122     C38840 Monitor     3390.95    Returned
+ORD200632     C67260  Laptop     3390.80   Delivered
+ORD200469     C13877   Chair     3384.90   Cancelled
+ORD200328     C18404  Tablet     3370.20   Cancelled
+ORD200107     C16775 Printer     3353.75     Shipped
+ORD200326     C65986  Laptop     3352.40    Returned
+ORD201065     C47778 Printer     3334.00   Delivered
+ORD201031     C59183   Phone     3322.55     Pending
+ORD200463     C25276  Laptop     3313.90     Shipped
+
+----------------------------------------------------------------------
+Query 6.2: Percentage of orders that are Cancelled or Returned
+----------------------------------------------------------------------
+ pct_cancelled_or_returned
+                      41.4
+
+----------------------------------------------------------------------
+Query 6.3: Revenue contribution of each product as a percentage of total revenue
+----------------------------------------------------------------------
+Product  product_revenue  pct_of_total_revenue
+  Chair        195620.11                 15.47
+Printer        195612.61                 15.47
+ Laptop        192126.56                 15.19
+ Tablet        186568.95                 14.75
+Monitor        175651.41                 13.89
+   Desk        167459.93                 13.24
+  Phone        151722.39                 12.00
+
+----------------------------------------------------------------------
+Query 6.4: Customers with more than 1 order (repeat customers)
+----------------------------------------------------------------------
+CustomerID  num_orders  total_spent
+    C38840           2      5723.23
+    C97593           2      2855.22
+    C98474           2      2175.34
+    C70659           2      1853.96
+    C94569           2      1675.35
+    C46651           2      1360.89
+    C35852           2      1248.39
+    C14847           2      1097.81
+    C91155           2       704.82
+    C21191           2       647.77
+    C56969           2       193.00
+
+----------------------------------------------------------------------
+Query 6.5: Best-performing product per order status (only Delivered orders, ranked by revenue)
+----------------------------------------------------------------------
+Product  revenue_from_delivered
+ Laptop                40714.43
+  Phone                40345.41
+Printer                38054.73
+Monitor                35999.62
+ Tablet                31794.52
+
+----------------------------------------------------------------------
+Query 6.6: Demonstrating the Alias Trap (commented out - this query FAILS):
+----------------------------------------------------------------------
+    rev
+3456.40
+3390.95
+3390.80
+3384.90
+3370.20
+3353.75
+3352.40
+3334.00
+3322.55
+3313.90
